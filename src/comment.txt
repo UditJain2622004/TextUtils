@@ -1,0 +1,113 @@
+SET ANY COLOR  (CHALLENGE 1)
+:::::::::::::::::::::::::::::::::;;APP.JS ::::::::::::::::;::::::::::::::::::::::::::::::::::::::::;;
+
+const [customColor, setCustomColor] = useState("");
+const [navColor, setNavColor] = useState("");
+const [fontColor, setFontColor] = useState("");
+
+
+const toggleMode = ()=>{
+    if(mode==="dark"){
+      setMode("light");
+      setNavColor("#f8f9fa")
+      setCustomColor("#343a40");
+      setFontColor("black")
+      document.body.style.backgroundColor="white";
+      document.body.style.color="#212529";
+      showAlert("Light Mode Enabled","success")
+    }else{
+      setMode("dark");
+      setNavColor("#212529");
+      setFontColor("white");
+      setCustomColor("#343a40")
+      document.body.style.backgroundColor="#343a40";
+      document.body.style.color="white";
+      showAlert("Dark Mode Enabled","success")
+    }
+  }
+
+  const darkModeColors = (color,whichColor)=>{
+    if(mode === "dark"){
+      if(whichColor==="theme"){
+        document.body.style.backgroundColor = color;
+        setCustomColor(color);
+      }else if(whichColor==="nav"){
+        setNavColor(color);
+      }else{
+        setFontColor(color);
+        document.body.style.color = color;
+       }
+    }
+  }
+
+  <Navbar title="TextUtils" aboutText="About Us" mode={mode} customColor={customColor} toggleMode={toggleMode} darkModeColors={darkModeColors} navColor={navColor} fontColor={fontColor}/>
+    
+<div className="container">            
+<TextForm showAlert={showAlert} title="Enter your text" mode={mode} customColor={customColor} navColor={navColor} fontColor={fontColor}/>
+
+
+::::::::::::::::::::::::::::::::::TEXTFORM.JS :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+let style;
+    if(props.mode==="dark"){
+        style = {
+            color:props.fontColor,
+            backgroundColor:props.customColor
+        }
+    }
+
+
+::::::::::::::::::::::::::::::::::::::NAVBAR.JS::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+let style;
+    if(props.mode==="dark"){
+        style = {
+            color:props.fontColor,
+            backgroundColor:props.navColor
+        }
+    }
+
+const colorChange = (event)=>{
+        const color = event.target.value;
+        if(props.mode === "dark"){
+            console.log(color)
+            props.darkModeColors(color,"theme");
+        }
+    }
+    const navColorChange = (event)=>{
+        const color = event.target.value;
+        if(props.mode === "dark"){
+            console.log(color)
+            props.darkModeColors(color,"nav");
+        }
+    }
+    const fontColorChange = (event)=>{
+        const color = event.target.value;
+        if(props.mode === "dark"){
+            console.log(color)
+            props.darkModeColors(color,"font");
+        }
+    }
+
+{props.mode==="dark" && <div style={style}>
+    <input className="me-md-1 color-pallette" type="color" onChange={colorChange} name="" id="theme" value="#858585"/>
+    <label className={`me-md-3 form-check-label text-${props.mode==="light"? "dark" :"light"}`} htmlFor="theme">Theme</label>
+    <input className="me-md-1 color-pallette" type="color" onChange={navColorChange} name="" id="nav" value="#858585"/>
+    <label className={`me-md-3 form-check-label text-${props.mode==="light"? "dark" :"light"}`} htmlFor="nav">Navbar</label>
+    <input className="me-md-1 color-pallette" type="color" onChange={fontColorChange} name="" id="font" value="#858585"/>
+    <label className={`me-md-3 form-check-label text-${props.mode==="light"? "dark" :"light"}`} htmlFor="color">Font</label>
+
+</div>}
+
+
+
+style={style}   set on all buttons and Navbar
+
+
+
+Harry bhai bhut lmba code hogya pr we can set ANY Color with this    (options only appears in dark mode)
+Code lmba hone ki vjh se thoda confuse ho gyaa tha isliye koi glti ho ya code short ho skta ho to pls jrur btana
+baki sb kuch work kr gya 
+Only NAVBAR ka FONTCOLOR Change nhi ho rha
